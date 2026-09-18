@@ -1,0 +1,38 @@
+{
+  "name": "opencode-git-guard",
+  "version": "0.1.0",
+  "description": "OpenCode plugin that blocks destructive git commands before they run.",
+  "license": "MIT",
+  "author": "Ahmed Ikram",
+  "type": "module",
+  "main": "index.ts",
+  "exports": {
+    ".": "./index.ts"
+  },
+  "files": [
+    "index.ts",
+    "README.md",
+    "LICENSE"
+  ],
+  "keywords": [
+    "opencode",
+    "opencode-plugin",
+    "git",
+    "guard",
+    "safety",
+    "ai-agents"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AhmedIkram05/opencode-git-guard.git"
+  },
+  "engines": {
+    "node": ">=22.6"
+  },
+  "scripts": {
+    "test": "node --experimental-strip-types test-guard.ts"
+  },
+  "devDependencies": {
+    "@opencode-ai/plugin": "^1.14.33"
+  }
+}
