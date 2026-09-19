@@ -1,6 +1,6 @@
 {
   "name": "opencode-git-guard",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "OpenCode plugin that blocks destructive git commands before they run.",
   "license": "MIT",
   "author": "Ahmed Ikram",
