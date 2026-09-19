@@ -28,7 +28,7 @@ Add the npm package to your `opencode.json`:
 
 Or copy `index.ts` to `~/.config/opencode/plugins/` (global) or `.opencode/plugins/` (per project). Restart OpenCode to load.
 
-or just copy/paste this README into your opencode.
+or copy/paste this README into an opencode session and instruct it to add both layers of this plugin.
 
 ## What it blocks
 
