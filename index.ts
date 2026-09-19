@@ -47,9 +47,6 @@ export const DESTRUCTIVE_GIT_PATTERNS: { re: RegExp; subcommands: string[] }[] =
   { re: /\bgit\b[^|;&]*?\bfilter-repo\b/i, subcommands: ["filter-repo"] },
   { re: /\bgit\b[^|;&]*?\bworktree\b[^|;&]*?\bremove\b[^|;&]*?(?:--force\b|\s-f(?=[\s]|$|[|;&]))/i, subcommands: ["worktree"] },
   { re: /\bgit\b[^|;&]*?\bworktree\b[^|;&]*?\bprune\b/i, subcommands: ["worktree"] },
-  // `clean -n` / `--dry-run` never block (lookahead exemption); real JSON
-  // permission globs cannot express that exemption, so the guard is the
-  // authority for it.
   { re: /\bgit\b[^|;&]*?\bclean\b(?![^|;&]*?\s-[a-z]*n)(?![^|;&]*?--dry-run\b)[^|;&]*?--force\b/i, subcommands: ["clean"] },
   { re: /\bgit\b[^|;&]*?\bclean\b(?![^|;&]*?\s-[a-z]*n)(?![^|;&]*?--dry-run\b)[^|;&]*?\s-[a-z]*[fdx]/i, subcommands: ["clean"] },
 ];
