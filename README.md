@@ -1,5 +1,9 @@
 # opencode-git-guard
 
+[![npm test](https://github.com/AhmedIkram05/opencode-git-guard/actions/workflows/ci.yml/badge.svg)](https://github.com/AhmedIkram05/opencode-git-guard/actions/workflows/ci.yml)
+[![npm publish](https://github.com/AhmedIkram05/opencode-git-guard/actions/workflows/publish.yml/badge.svg)](https://github.com/AhmedIkram05/opencode-git-guard/actions/workflows/publish.yml)
+[![release bump](https://github.com/AhmedIkram05/opencode-git-guard/actions/workflows/release.yml/badge.svg)](https://github.com/AhmedIkram05/opencode-git-guard/actions/workflows/release.yml)
+
 An [OpenCode](https://opencode.ai) plugin that **blocks destructive git commands before they run**. It hooks OpenCode's `tool.execute.before` event and throws on any bash command containing a destructive git variant - the tool call aborts and the agent sees the block message.
 
 ## How it works: two layers
