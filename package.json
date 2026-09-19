@@ -30,7 +30,7 @@
     "node": ">=22.6"
   },
   "scripts": {
-    "test": "node --experimental-strip-types test-guard.ts"
+    "test": "node --experimental-strip-types tests/test-guard.ts"
   },
   "devDependencies": {
     "@opencode-ai/plugin": "^1.14.33"
