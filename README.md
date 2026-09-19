@@ -72,7 +72,8 @@ Paste this README into an opencode session and ask it to install both layers (pl
 ## What it deliberately does NOT do
 
 - **No allowlisting.** Branch-guard plugins exist for that; this one only denies known-destructive variants. Everything else flows to your permission config.
-- **Not a shell parser.** Commands are split on `|`, `;`, `&`, newlines - same residual risk as any bash hook: `eval`, heredocs, or unusual substitutions can hide a command. Segments *not* led by git (`sudo git reset --hard`, `echo $(git push --force)`) fail conservative: any destructive match blocks. This also means plain *text* mentioning those commands (e.g. `echo`, heredoc file writes) is blocked - a known false-positive class; use the escape hatch for the rare legitimate case.
+- **Not a shell parser.** Commands are split on `|`, `;`, `&`, newlines - same residual risk as any bash hook: `eval`, heredocs, or unusual substitutions can hide a command. Segments *not* led by git (`sudo git reset --hard`, `echo $(git push --force)`) fail conservative: any destructive match blocks.
+- **Plain-text mentions can false-positive.** Writing those commands as text (e.g. `echo`, heredoc file writes) is also blocked - use the escape hatch for the rare legitimate case.
 - **Aliases and flag clusters are not traced.** `git config alias.x 'push --force'` then `git x` (or `-c alias.…=…`) evades the guard; combined flags like `-fB` can slip past single-flag patterns. Deliberate evasion is out of scope - this guard targets accidents.
 - **Quoted messages are handled:** `git commit -m "git push --force"` is recognized as `commit` and passed through - a denied push pattern only fires when the segment's first git subcommand actually owns it.
 
