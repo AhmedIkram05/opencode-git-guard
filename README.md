@@ -31,7 +31,6 @@ Add the package name to `plugin` in your `opencode.json` (global `~/.config/open
 
 ```json
 {
-  "$schema": "https://opencode.ai/config.json",
   "plugin": ["opencode-git-guard"]
 }
 ```
