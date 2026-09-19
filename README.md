@@ -91,7 +91,7 @@ Read once at startup. Use it when you legitimately need `git filter-repo` or sim
 
 ## Recommended permission pairing
 
-The guard denies outright; layer permission rules so non-destructive git work still gets a human in the loop. One block, copy-paste into `opencode.json`:
+The guard denies outright; layer permission rules so non-destructive git work still gets a human in the loop. Merge this into your existing `opencode.json` (global `~/.config/opencode/opencode.json` or project `./opencode.json`) - don't replace the whole file or you'll lose the `plugin` line from Install:
 
 ```json
 {
