@@ -1,6 +1,6 @@
 // Self-check: node --experimental-strip-types test-guard.ts  (node >= 22.6)
 import assert from "node:assert/strict";
-import { firstGitSubcommand, isDestructiveGit } from "./index.ts";
+import { firstGitSubcommand, isDestructiveGit } from "../index.ts";
 
 const BLOCK: [string, string][] = [
   ["git push --force", "push"],
