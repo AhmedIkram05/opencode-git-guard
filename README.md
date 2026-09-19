@@ -149,3 +149,7 @@ npm test   # node >= 22.6 (uses --experimental-strip-types)
 ```
 
 70 table-driven cases cover the tricky parsing paths (chain segments, `-C dir` globals, quoted commit messages, `clean -n` exemption, subcommand attribution).
+
+## License
+
+MIT - see [LICENSE](LICENSE).
