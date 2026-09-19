@@ -26,6 +26,7 @@
     "type": "git",
     "url": "git+https://github.com/AhmedIkram05/opencode-git-guard.git"
   },
+  "homepage": "https://github.com/AhmedIkram05/opencode-git-guard",
   "engines": {
     "node": ">=22.6"
   },
