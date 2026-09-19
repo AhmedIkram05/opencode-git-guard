@@ -35,9 +35,18 @@ Add the package name to `plugin` in your `opencode.json` (global `~/.config/open
 }
 ```
 
-Or copy `index.ts` to `~/.config/opencode/plugins/` (global) or `.opencode/plugins/` (per project). Restart OpenCode to load.
+### 2. From local file
 
-or copy/paste this README into an opencode session and instruct it to add both layers of this plugin.
+Save `index.ts` as `git-guard.ts` in your plugins directory **don't keep the name `index.ts` - it can collide**:
+
+- `~/.config/opencode/plugins/git-guard.ts` - global
+- `.opencode/plugins/git-guard.ts` - per project
+
+Restart OpenCode to load. No extra `package.json` needed - the only import is type-only and erased at runtime.
+
+### 3. Via agent
+
+Paste this README into an opencode session and ask it to install both layers (plugin + [permission pairing](#recommended-permission-pairing)). Review the diff - check the `allow` rows stayed after the `ask` rows and it landed in the intended (global vs project) config.
 
 ## What it blocks
 
