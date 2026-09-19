@@ -1,5 +1,9 @@
 # opencode-git-guard
 
+[![npm test](https://github.com/AhmedIkram05/opencode-git-guard/actions/workflows/ci.yml/badge.svg)](https://github.com/AhmedIkram05/opencode-git-guard/actions/workflows/ci.yml)
+[![npm publish](https://github.com/AhmedIkram05/opencode-git-guard/actions/workflows/publish.yml/badge.svg)](https://github.com/AhmedIkram05/opencode-git-guard/actions/workflows/publish.yml)
+[![release bump](https://github.com/AhmedIkram05/opencode-git-guard/actions/workflows/release.yml/badge.svg)](https://github.com/AhmedIkram05/opencode-git-guard/actions/workflows/release.yml)
+
 An [OpenCode](https://opencode.ai) plugin that **blocks destructive git commands before they run**. It hooks OpenCode's `tool.execute.before` event and throws on any bash command containing a destructive git variant - the tool call aborts and the agent sees the block message.
 
 ## How it works: two layers
@@ -17,18 +21,32 @@ The plugin works standalone - layer 2 is optional. Without the [pairing block](#
 
 ## Install
 
-Add the npm package to your `opencode.json`:
+Requires Node >= 22.6.
+
+Pick one:
+
+### 1. From npm
+
+Add the package name to `plugin` in your `opencode.json` (global `~/.config/opencode/opencode.json` or local project `./opencode.json`). Restart OpenCode - it installs via Bun at startup (needs network on first run).
 
 ```json
 {
-  "$schema": "https://opencode.ai/config.json",
   "plugin": ["opencode-git-guard"]
 }
 ```
 
-Or copy `index.ts` to `~/.config/opencode/plugins/` (global) or `.opencode/plugins/` (per project). Restart OpenCode to load.
+### 2. From local file
 
-or copy/paste this README into an opencode session and instruct it to add both layers of this plugin.
+Save `index.ts` as `git-guard.ts` in your plugins directory **don't keep the name `index.ts` - it can collide**:
+
+- `~/.config/opencode/plugins/git-guard.ts` - global
+- `.opencode/plugins/git-guard.ts` - per project
+
+Restart OpenCode to load. No extra `package.json` needed - the only import is type-only and erased at runtime.
+
+### 3. Via agent
+
+Paste this README into an opencode session and ask it to install both layers (plugin + [permission pairing](#recommended-permission-pairing)). Review the diff - check the `allow` rows stayed after the `ask` rows and it landed in the intended (global vs project) config.
 
 ## What it blocks
 
@@ -54,7 +72,8 @@ or copy/paste this README into an opencode session and instruct it to add both l
 ## What it deliberately does NOT do
 
 - **No allowlisting.** Branch-guard plugins exist for that; this one only denies known-destructive variants. Everything else flows to your permission config.
-- **Not a shell parser.** Commands are split on `|`, `;`, `&`, newlines - same residual risk as any bash hook: `eval`, heredocs, or unusual substitutions can hide a command. Segments *not* led by git (`sudo git reset --hard`, `echo $(git push --force)`) fail conservative: any destructive match blocks. This also means plain *text* mentioning those commands (e.g. `echo`, heredoc file writes) is blocked - a known false-positive class; use the escape hatch for the rare legitimate case.
+- **Not a shell parser.** Commands are split on `|`, `;`, `&`, newlines - same residual risk as any bash hook: `eval`, heredocs, or unusual substitutions can hide a command. Segments *not* led by git (`sudo git reset --hard`, `echo $(git push --force)`) fail conservative: any destructive match blocks.
+- **Plain-text mentions can false-positive.** Writing those commands as text (e.g. `echo`, heredoc file writes) is also blocked - use the escape hatch for the rare legitimate case.
 - **Aliases and flag clusters are not traced.** `git config alias.x 'push --force'` then `git x` (or `-c alias.…=…`) evades the guard; combined flags like `-fB` can slip past single-flag patterns. Deliberate evasion is out of scope - this guard targets accidents.
 - **Quoted messages are handled:** `git commit -m "git push --force"` is recognized as `commit` and passed through - a denied push pattern only fires when the segment's first git subcommand actually owns it.
 
@@ -72,7 +91,7 @@ Read once at startup. Use it when you legitimately need `git filter-repo` or sim
 
 ## Recommended permission pairing
 
-The guard denies outright; layer permission rules so non-destructive git work still gets a human in the loop. One block, copy-paste into `opencode.json`:
+The guard denies outright; layer permission rules so non-destructive git work still gets a human in the loop. Merge this into your existing `opencode.json` (global `~/.config/opencode/opencode.json` or project `./opencode.json`) - don't replace the whole file or you'll lose the `plugin` line from Install:
 
 ```json
 {
@@ -130,3 +149,7 @@ npm test   # node >= 22.6 (uses --experimental-strip-types)
 ```
 
 70 table-driven cases cover the tricky parsing paths (chain segments, `-C dir` globals, quoted commit messages, `clean -n` exemption, subcommand attribution).
+
+## License
+
+MIT - see [LICENSE](LICENSE).
