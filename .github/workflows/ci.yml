@@ -1,4 +1,4 @@
-name: ci
+name: npm test
 on:
   push:
   pull_request:
