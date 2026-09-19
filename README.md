@@ -21,7 +21,13 @@ The plugin works standalone - layer 2 is optional. Without the [pairing block](#
 
 ## Install
 
-Add the npm package to your `opencode.json`:
+Requires Node >= 22.6.
+
+Pick one:
+
+### 1. From npm
+
+Add the package name to `plugin` in your `opencode.json` (global `~/.config/opencode/opencode.json` or local project `./opencode.json`). Restart OpenCode - it installs via Bun at startup (needs network on first run).
 
 ```json
 {
